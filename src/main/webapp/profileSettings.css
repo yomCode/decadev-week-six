@@ -1,0 +1,14 @@
+body{margin-top:20px;}
+.avatar{
+    width:200px;
+    height:200px;
+}
+
+.btn{
+    margin-top: 1rem;
+
+}
+
+button{
+    border-radius: 1rem;
+}
