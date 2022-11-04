@@ -1,5 +1,6 @@
 package postDao;
 
+import jakarta.servlet.http.HttpSession;
 import models.Post;
 import models.User;
 
@@ -35,31 +36,52 @@ public class PostDao {
 
 
     public static List<Post> fetchPost(){
-        Post post = new Post();
-        List<Post> posts = new ArrayList<>();
-
         String query = "SELECT * FROM posts";
-        String query2 = "SELECT * FROM users WHERE user_id = " + "'" + post.getId() + "'";
+
+        List<Post> posts = new ArrayList<>();
 
         try {
             PreparedStatement ps = getConnection().prepareStatement(query);
-            PreparedStatement ps2 = getConnection().prepareStatement(query2);
             ResultSet rs = ps.executeQuery();
-            ResultSet rs2 = ps2.executeQuery();
+
+
 
             while(rs.next()){
+                Post post = new Post();
 
                 post.setId(rs.getInt(1));
                 post.setPost_text(rs.getString(2));
-                post.setAuthor(rs2.getString(2) + rs2.getString(3));
+                post.setAuthor_id(rs.getInt(3));
                 post.setCreation_dateTime(rs.getDate(4));
 
                 posts.add(post);
             }
+            System.out.println(posts);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+
+
+
+
+
+//        try {
+//            PreparedStatement ps = getConnection().prepareStatement(query2);
+//            ResultSet rs = ps.executeQuery();
+//
+//            while(rs.next()){
+//                post.setAuthor(rs.getString(1) + " " + rs.getString(2));
+//
+//                posts.add(post);
+//
+//            }
+//
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+
         return posts;
 
     }

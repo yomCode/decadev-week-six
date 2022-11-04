@@ -12,7 +12,7 @@ import java.sql.Date;
 
 import static models.DB_Connection.getConnection;
 
-@WebServlet(name = "signupServlet", value = "/signupServlet")
+@WebServlet(urlPatterns = "/signupServlet")
 public class registrationController extends HttpServlet {
 
     @Override

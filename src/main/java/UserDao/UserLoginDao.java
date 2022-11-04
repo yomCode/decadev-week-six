@@ -1,6 +1,7 @@
 package UserDao;
 
 import models.Login;
+import models.User;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,5 +34,9 @@ public class UserLoginDao {
 
         return isDetailsCorrect;
     }
+
+
+
+
 
 }

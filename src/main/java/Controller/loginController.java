@@ -40,6 +40,7 @@ public class loginController extends HttpServlet {
                 ResultSet rs = ps.executeQuery();
 
                 while(rs.next()){
+                    user.setId(rs.getInt(1));
                     user.setFirst_name(rs.getString(2));
                     user.setLast_name(rs.getString(3));
                     user.setEmail(rs.getString(4));
@@ -52,9 +53,6 @@ public class loginController extends HttpServlet {
             }
 
             session.setAttribute("user", user);
-
-
-
 
 //            response.sendRedirect(request.getContextPath() + "/welcome");
 
