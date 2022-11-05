@@ -21,6 +21,9 @@ public class HomepageController extends HttpServlet {
         User user_in_session = (User)session.getAttribute("user");
 
         String post_text =  request.getParameter("post_text");
+
+
+
        Integer user_id = null;
 
         String query = "SELECT * FROM users WHERE email = " + "'"+ user_in_session.getEmail() +"'";
@@ -42,7 +45,10 @@ public class HomepageController extends HttpServlet {
             ps.setString(1, post_text);
             ps.setInt(2, user_id);
 
-            ps.executeUpdate();
+            if(!post_text.equals("")){
+                ps.executeUpdate();
+            }
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

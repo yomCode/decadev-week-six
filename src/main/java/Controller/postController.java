@@ -21,7 +21,7 @@ public class postController extends HttpServlet {
  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 //  HttpSession session = request.getSession(true);
- String post_id = request.getParameter("post_id");
+// String post_id = request.getParameter("post_id");
 
   RequestDispatcher rd = request.getRequestDispatcher("welcome.jsp");
   rd.forward(request, response);

@@ -1,13 +1,10 @@
-<%@ page import="models.User" %>
-<%@ page import="models.Post" %>
 <%@ page import="postDao.PostDao" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.sql.PreparedStatement" %>
-<%@ page import="models.DB_Connection" %>
 <%@ page import="java.sql.ResultSet" %>
-<%@ page import="models.Comment" %>
 <%@ page import="postDao.CommentDao" %>
-<%@ page import="java.sql.SQLException" %><%--
+<%@ page import="java.sql.SQLException" %>
+<%@ page import="models.*" %><%--
   Created by IntelliJ IDEA.
   User: decagon
   Date: 30/10/2022
@@ -26,16 +23,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="welcome.css">
-    <script>
-        let commentsSection = document.querySelector('.comment-section');
-        // let isShow = true;
-        function showComments(){
-            // isShow = !isShow;
-            commentsSection.style.display = "block";
-        }
-
-
-    </script>
 </head>
 <body>
 <div class="container bootstrap snippets bootdey">
@@ -61,7 +48,7 @@
                 </div>
                 <div class="panel profile-info">
                     <form action=post method="post">
-                        <textarea style="color:#171616 ; border-color: black " class="form-control input-lg p-text-area" name="post_text" id="" cols="100" rows="10" placeholder="What's on your mind today?"></textarea><br>
+                        <textarea style="color:#171616 ; border-style: solid; border-color: #2525b6 " class="form-control input-lg p-text-area" name="post_text" id="" cols="10" rows="10" placeholder="What's on your mind today?" required></textarea><br>
                         <button type="submit" class="post-btn">Post</button>
                     </form>
                 </div>
@@ -77,6 +64,8 @@
 
         <%
             List<Comment>  postForComment = CommentDao.fetchComment(posts.get(i));
+            List<Like> postLikes = likeDao.likeDao.fetchAllLikes(posts.get(i));
+
         String query = "SELECT * FROM users WHERE" + "'" + posts.get(i).getAuthor_id() + "'" +  "=" + "user_id";
             PreparedStatement ps = DB_Connection.getConnection().prepareStatement(query);
             ResultSet rs = ps.executeQuery();
@@ -99,7 +88,7 @@
                                          src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="60"
                                          height="60" />
                                     <div>
-                                        <h6 class="fw-bold text-primary mb-1"><%=posts.get(i).getAuthor() %></h6>
+                                        <h6 class="fw-bold text-primary mb-1"><%= posts.get(i).getAuthor() %></h6>
                                         <p class="text-muted small mb-0">
                                             <%= posts.get(i).getCreation_dateTime() %>
                                         </p>
@@ -112,21 +101,28 @@
                                 </p>
 
                                 <div class="small d-flex justify-content-start">
-                                    <a href="#!" class="d-flex align-items-center me-3">
-                                        <i class="far fa-thumbs-up me-2"></i>
-                                        <p class="mb-0">Like</p>
-                                    </a>
+                                    <form action=likes method="post">
+                                        <input type="hidden" name="post_id" value=<%= posts.get(i).getId() %>>
+                                        <input type="hidden" name="user_id" value=<%= user.getId() %>>
+                                        <button type="submit" class="d-flex naked-btn">
+                                            <p class="mb-0"><%= postLikes.size() + " " %>   Like</p>
+                                        </button>
+                                    </form>
                                     <%--=======================================================================================================================--%>
-<%--                                    <a href="#!" class="d-flex align-items-center me-3">--%>
-                                    <button type="button" onclick='showComments()' class="d-flex align-items-center me-3">
+
+                                    <button type="button" onclick='showComments()' class="d-flex me-3 naked-btn post-btn" >
                                         <p class="mb-0"> <%= postForComment.size() + " " %>  Comment</p>
                                     </button>
 
-<%--                                    </a>--%>
-                                    <a href="#!" class="d-flex align-items-center me-3">
-                                        <i class="fas fa-share me-2"></i>
-                                        <p class="mb-0">Share</p>
-                                    </a>
+                                    <%if(posts.get(i).getAuthor_id() == user.getId()){%>
+                                        <form action="delete-Post" method="post">
+                                        <input type="hidden" name="post_id" value=<%= posts.get(i).getId() %>>
+                                    <button type="submit" class="d-flex naked-btn delete-btn" >
+                                        Delete post
+                                    </button>
+                                    </form>
+                                    <%}%>
+
                                 </div>
                             </div>
 <%--                         Comment   ==================--%>
@@ -134,7 +130,7 @@
                                 <div class="d-flex flex-start w-100">
                                     <div class="form-outline w-100">
 
-                                        <section class="comment-section hide">
+                                        <section class="comment-section">
                                             <% for(Comment comment : postForComment){
 
                                                 try {
@@ -158,7 +154,9 @@
                                                      src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="40"
                                                      height="40" />
                                                 <div>
-                                                    <p style="color: #006fff"> <%= comment.getAuthor() %> </p>
+                                                    <p style="color: #006fff"> <%
+                                                    if(comment.getUser_id() != user.getId())%> You
+                                                       <% comment.getAuthor();%> </p>
                                                 </div>
                                                 <div style="margin-top: -1rem">
                                                     <p style="color: black"> <%= comment.getContent() %>  </p>
@@ -190,5 +188,6 @@
     </div>
     </div>
 </div>
+<script src="welcome.js"></script>
 </body>
 </html>

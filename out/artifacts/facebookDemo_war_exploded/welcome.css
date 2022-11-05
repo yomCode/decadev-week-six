@@ -257,13 +257,13 @@ a{
 }
 
 .post-btn{
-    width: 6rem;
-    padding: 0.8rem 0;
-    text-align: center;
-    margin-top: 1rem;
-    margin-left: 0.5rem;
-    border-radius: 0.5rem;
-    border-color: #1d1db0;
+    /*width: 6rem;*/
+    /*padding: 0.8rem 0;*/
+    /*text-align: center;*/
+    /*margin-top: 1rem;*/
+    /*margin-left: 0.5rem;*/
+    /*border-radius: 0.5rem;*/
+    /*border-color: #1d1db0;*/
 }
 
 /*Post part=================================*/
@@ -390,10 +390,32 @@ body {
     /*width: 100%;*/
 }
 
-.show{
-    display: block;
+/*.show{*/
+/*    display: block;*/
+/*}*/
+
+/*.hide{*/
+/*    display: none;*/
+/*}*/
+
+.comment-section{
+    display: none;
 }
 
-.hide{
-    display: none;
+.naked-btn{
+    border: none;
+    background: none;
+}
+
+.flex-btn{
+    display: flex;
+    gap: 0.5rem;
+}
+
+.delete-btn{
+    color: red;
+}
+
+.post-btn{
+    color: blue;
 }

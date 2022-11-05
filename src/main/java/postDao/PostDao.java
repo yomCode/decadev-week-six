@@ -62,27 +62,27 @@ public class PostDao {
             throw new RuntimeException(e);
         }
 
-
-
-
-
-
-//        try {
-//            PreparedStatement ps = getConnection().prepareStatement(query2);
-//            ResultSet rs = ps.executeQuery();
-//
-//            while(rs.next()){
-//                post.setAuthor(rs.getString(1) + " " + rs.getString(2));
-//
-//                posts.add(post);
-//
-//            }
-//
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-
         return posts;
+
+    }
+
+
+    public static boolean deletePost(Integer id){
+        Boolean isDeleted = null;
+
+        String query = "DELETE FROM posts WHERE post_id =" + id;
+
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(query);
+
+            isDeleted = ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally {
+
+        }
+        return isDeleted;
 
     }
 

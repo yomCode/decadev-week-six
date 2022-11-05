@@ -16,6 +16,7 @@ public class Post {
     private Date creation_dateTime;
     private String post_text;
     private List<Comment> comments;
+    private List<Like> likes;
 
 
 
