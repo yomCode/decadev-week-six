@@ -30,7 +30,7 @@
         <div class="panel">
             <div class="cover-photo">
                 <div class="fb-timeline-img">
-                    <img src="https://bootdey.com/img/Content/bg1.jpg" alt="">
+                    <img src="background.jpeg." alt="https://bootdey.com/img/Content/bg1.jpg">
                 </div>
                 <div class="fb-name">
                     <h2><%= user.getFirst_name() + " " + user.getLast_name() + " " %><a href="profileSetting.jsp"><i class='bx bx-edit'></i></a> </h2>
@@ -48,7 +48,7 @@
                 </div>
                 <div class="panel profile-info">
                     <form action=post method="post">
-                        <textarea style="color:#171616 ; border-style: solid; border-color: #2525b6 " class="form-control input-lg p-text-area" name="post_text" id="" cols="10" rows="10" placeholder="What's on your mind today?" required></textarea><br>
+                        <textarea style="color:#171616 ; border-style: solid; border-color: #2525b6 " class="form-control input-lg p-text-area" name="post_text" id="" cols="5" rows="10" placeholder="What's on your mind today?" required></textarea><br>
                         <button type="submit" class="post-btn">Post</button>
                     </form>
                 </div>
@@ -101,13 +101,35 @@
                                 </p>
 
                                 <div class="small d-flex justify-content-start">
+
                                     <form action=likes method="post">
                                         <input type="hidden" name="post_id" value=<%= posts.get(i).getId() %>>
                                         <input type="hidden" name="user_id" value=<%= user.getId() %>>
+<%--                                        <%for(Like like : postLikes){--%>
+
+<%--                                        if(like.getUser_id() != user.getId()){%>--%>
+
                                         <button type="submit" class="d-flex naked-btn">
                                             <p class="mb-0"><%= postLikes.size() + " " %>   Like</p>
                                         </button>
                                     </form>
+
+<%--                                    <%}else {%>--%>
+
+<%--                                        <form action=unlike method="post">--%>
+<%--                                        <input type="hidden" name="post_id" value=<%= posts.get(i).getId() %>>--%>
+<%--                                    <input type="hidden" name="user_id" value=<%= user.getId() %>>--%>
+<%--                                    <button type="submit" class="d-flex naked-btn">--%>
+<%--                                        <p class="mb-0"><%= postLikes.size() + " " %>   Like</p>--%>
+<%--                                    </button>--%>
+<%--                                    </form>--%>
+
+<%--                                    <%}%>--%>
+
+<%--                                    <%}%>--%>
+
+
+
                                     <%--=======================================================================================================================--%>
 
                                     <button type="button" onclick='showComments()' class="d-flex me-3 naked-btn post-btn" >
@@ -116,11 +138,11 @@
 
                                     <%if(posts.get(i).getAuthor_id() == user.getId()){%>
                                         <form action="delete-Post" method="post">
-                                        <input type="hidden" name="post_id" value=<%= posts.get(i).getId() %>>
-                                    <button type="submit" class="d-flex naked-btn delete-btn" >
-                                        Delete post
-                                    </button>
-                                    </form>
+                                                <input type="hidden" name="post_id" value=<%= posts.get(i).getId() %>>
+                                            <button type="submit" class="d-flex naked-btn delete-btn" >
+                                                Delete post
+                                            </button>
+                                        </form>
                                     <%}%>
 
                                 </div>
@@ -154,9 +176,14 @@
                                                      src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="40"
                                                      height="40" />
                                                 <div>
-                                                    <p style="color: #006fff"> <%
-                                                    if(comment.getUser_id() != user.getId())%> You
-                                                       <% comment.getAuthor();%> </p>
+                                                    <p style="color: #006fff">
+                                                        <%
+                                                    if(comment.getUser_id() != user.getId()) {%>
+                                                       <%= comment.getAuthor()%>
+                                                    <%}else{%>
+                                                        You
+                                                        <%}%>
+                                                    </p>
                                                 </div>
                                                 <div style="margin-top: -1rem">
                                                     <p style="color: black"> <%= comment.getContent() %>  </p>

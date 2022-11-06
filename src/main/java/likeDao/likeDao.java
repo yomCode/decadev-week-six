@@ -31,18 +31,19 @@ public class likeDao {
         return isRecorded;
     }
 
-    public static void deleteLike(User user){
-
+    public static Boolean deleteLike(User user){
+Boolean isDeleted = null;
         String query = "DELETE FROM likes where user_id =" + user.getId();
 
         try{
             PreparedStatement ps = getConnection().prepareStatement(query);
 
-            ps.executeUpdate();
+           isDeleted = ps.executeUpdate()>0;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
+        return isDeleted;
 
     }
 

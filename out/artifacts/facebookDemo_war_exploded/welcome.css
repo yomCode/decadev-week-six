@@ -390,18 +390,6 @@ body {
     /*width: 100%;*/
 }
 
-/*.show{*/
-/*    display: block;*/
-/*}*/
-
-/*.hide{*/
-/*    display: none;*/
-/*}*/
-
-.comment-section{
-    display: none;
-}
-
 .naked-btn{
     border: none;
     background: none;
