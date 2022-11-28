@@ -4,7 +4,8 @@
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="postDao.CommentDao" %>
 <%@ page import="java.sql.SQLException" %>
-<%@ page import="models.*" %><%--
+<%@ page import="models.*" %>
+<%@ page import="java.time.LocalTime" %><%--
   Created by IntelliJ IDEA.
   User: decagon
   Date: 30/10/2022
@@ -30,7 +31,7 @@
         <div class="panel">
             <div class="cover-photo">
                 <div class="fb-timeline-img">
-                    <img src="background.jpeg." alt="https://bootdey.com/img/Content/bg1.jpg">
+                    <img src="https://bootdey.com/img/Content/bg1.jpg" alt="">
                 </div>
                 <div class="fb-name">
                     <h2><%= user.getFirst_name() + " " + user.getLast_name() + " " %><a href="profileSetting.jsp"><i class='bx bx-edit'></i></a> </h2>
@@ -105,34 +106,14 @@
                                     <form action=likes method="post">
                                         <input type="hidden" name="post_id" value=<%= posts.get(i).getId() %>>
                                         <input type="hidden" name="user_id" value=<%= user.getId() %>>
-<%--                                        <%for(Like like : postLikes){--%>
-
-<%--                                        if(like.getUser_id() != user.getId()){%>--%>
 
                                         <button type="submit" class="d-flex naked-btn">
                                             <p class="mb-0"><%= postLikes.size() + " " %>   Like</p>
                                         </button>
                                     </form>
-
-<%--                                    <%}else {%>--%>
-
-<%--                                        <form action=unlike method="post">--%>
-<%--                                        <input type="hidden" name="post_id" value=<%= posts.get(i).getId() %>>--%>
-<%--                                    <input type="hidden" name="user_id" value=<%= user.getId() %>>--%>
-<%--                                    <button type="submit" class="d-flex naked-btn">--%>
-<%--                                        <p class="mb-0"><%= postLikes.size() + " " %>   Like</p>--%>
-<%--                                    </button>--%>
-<%--                                    </form>--%>
-
-<%--                                    <%}%>--%>
-
-<%--                                    <%}%>--%>
-
-
-
                                     <%--=======================================================================================================================--%>
 
-                                    <button type="button" onclick='showComments()' class="d-flex me-3 naked-btn post-btn" >
+                                    <button type="button" class="d-flex me-3 naked-btn post-btn" id="commentBtn" >
                                         <p class="mb-0"> <%= postForComment.size() + " " %>  Comment</p>
                                     </button>
 
@@ -152,7 +133,8 @@
                                 <div class="d-flex flex-start w-100">
                                     <div class="form-outline w-100">
 
-                                        <section class="comment-section">
+                                        <div class="hideComment display"></div>
+                                        <div class="comment-section">
                                             <% for(Comment comment : postForComment){
 
                                                 try {
@@ -179,9 +161,9 @@
                                                     <p style="color: #006fff">
                                                         <%
                                                     if(comment.getUser_id() != user.getId()) {%>
-                                                       <%= comment.getAuthor()%>
-                                                    <%}else{%>
-                                                        You
+                                                       <%= comment.getAuthor()%> <span style="color: #212020"><%= "   " + comment.getCreation_date() %></span>
+                                                        <%}else{%>
+                                                        You <span style="color: #212020"><%= "   " + comment.getCreation_date() %></span>
                                                         <%}%>
                                                     </p>
                                                 </div>
@@ -191,7 +173,7 @@
                                             </div>
 
                                             <%}%>
-                                        </section>
+                                        </div>
 
                                         <form action=comment method="post">
                                             <textarea class="form-control" id="textAreaExample" rows="1"
@@ -201,6 +183,7 @@
                                             <div class="float-end mt-2 pt-1">
                                                 <input type="hidden" name="post_id" value="<%= posts.get(i).getId() %>">
                                                 <input type="hidden" name="author" value="<%= user.getFirst_name() + " " + user.getLast_name() %>">
+                                                <input type="hidden" name="time" value="<%= LocalTime.now() %>">
                                                 <button type="submit" class="btn btn-primary btn-sm">Post comment</button>
                                             </div>
                                         </form>
@@ -215,6 +198,21 @@
     </div>
     </div>
 </div>
-<script src="welcome.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"  >
+
+    // $("#commentBtn").on('click', function(e){
+    //     $('.hideComment', '.comment-sectio').toggleClass('display');
+    //
+    // });
+
+    $(document).ready(function(){
+        $('.comment-section').hide();
+        $('#commentBtn').on('click', function(){
+            $('.hideComment').hide();
+            $('.hideComment').removeClass("component")
+            $('.comment-section').show();
+        });
+    });
+</script>
 </body>
 </html>

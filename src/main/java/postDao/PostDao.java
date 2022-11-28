@@ -52,7 +52,7 @@ public class PostDao {
                 post.setId(rs.getInt(1));
                 post.setPost_text(rs.getString(2));
                 post.setAuthor_id(rs.getInt(3));
-                post.setCreation_dateTime(rs.getDate(4));
+                post.setCreation_dateTime(rs.getTimestamp(4));
 
                 posts.add(post);
             }

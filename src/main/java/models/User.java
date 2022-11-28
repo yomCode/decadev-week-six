@@ -16,7 +16,7 @@ public class User {
     private String email;
     private String password;
     private Date date_of_birth;
-    private String gender;
+
 
 
     public User(String firstname, String lastname, String email, String password, Date date_of_birth) {

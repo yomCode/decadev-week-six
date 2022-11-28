@@ -56,7 +56,7 @@ public class CommentDao {
                 comment.setContent(rs.getString(2));
                 comment.setUser_id(rs.getInt(3));
                 comment.setPost_id(rs.getInt(4));
-                comment.setCreation_date(rs.getDate(5));
+                comment.setCreation_date(rs.getTimestamp(5));
 
                 comments.add(comment);
 

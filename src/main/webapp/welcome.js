@@ -1,25 +1,16 @@
 
-    let commentsSection = document.querySelector('.comment-section');
-//     function showComments(){
-//     commentsSection.style.display = "block";
-// }
-function  showComments(){
-   let isShow = true;
+    let commentsSection = document.querySelector(".comment-section")
+    let commentBtn = document.querySelector("#commentBtn")
+    let hideComment = document.querySelector(".hideComment");
 
-   // if(isShow){
-   //     commentsSection.style.display = 'none';
-   //     isShow = false;
-   // }else{
-   //     commentsSection.style.display = 'block'
-   //     isShow = true;
-   // }
+    $(document).ready(function(){
+        $(commentsSection).toggle();
+        let showComment = function () {
+            $(hideComment).toggle();
+            $(hideComment).toggleClass("component");
+            $(commentsSection).toggle();
+        }
+    });
 
-    // isShow = !isShow;
-    // commentsSection.classList.toggle("hide", isShow);
 
-    // if(commentsSection.style.display === 'none'){
-    //     commentsSection.style.display = 'block';
-    // }else if(commentsSection.style.display === 'block'){
-    //     commentsSection.style.display = 'none';
-    // }
-}
+

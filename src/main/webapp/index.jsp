@@ -11,7 +11,6 @@
 <div class="container">
     <div class="row align-items-center justify-content-center vh-100">
         <div class="col-md-7">
-<%--            <img src="https://static.xx.fbcdn.net/rsrc.php/y8/r/dF5SId3UHWd.svg" class="w-50">--%>
             <h1 class="text-logo">Facebook Mini</h1>
             <h3>Facebook helps you connect and share with the people in your life.</h3>
         </div>

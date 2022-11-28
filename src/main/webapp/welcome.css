@@ -407,3 +407,11 @@ body {
 .post-btn{
     color: blue;
 }
+
+.comment-section, .hideComment{
+    display: none;
+}
+
+.display{
+    display: block;
+}
